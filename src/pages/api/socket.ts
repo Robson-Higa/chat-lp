@@ -56,6 +56,10 @@ export default async function handler(
       });
     });
 
+    console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log("DATABASE_URL:", process.env.DATABASE_URL);
+
+
     res.socket.server.io = io;
   }
 
