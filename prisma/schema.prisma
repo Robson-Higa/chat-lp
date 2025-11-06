@@ -11,6 +11,7 @@ model Message {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   userName  String
   text      String
-  room      String
+  room      String   @default("general") // ✅ campo adicionado
   createdAt DateTime @default(now())
 }
+
