@@ -4,14 +4,13 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "@/lib/mongodb";
 import { compare } from "bcryptjs";
 
-// Configuração principal do NextAuth
 const handler = NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "email", placeholder: "seu@email.com" },
+        email: { label: "Email", type: "email" },
         password: { label: "Senha", type: "password" },
       },
       async authorize(credentials) {
@@ -35,9 +34,7 @@ const handler = NextAuth({
     }),
   ],
   session: { strategy: "jwt" },
-  pages: {
-    signIn: "/login", // rota personalizada de login
-  },
+  pages: { signIn: "/login" },
   callbacks: {
     async jwt({ token, user }) {
       if (user) token.id = user.id;
@@ -51,8 +48,8 @@ const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
 });
 
-// Para Next.js App Router
+// Compatível com App Router
 export { handler as GET, handler as POST };
 
-// Para Pages Router (compatibilidade)
+// Compatível com Pages Router
 export default handler;
