@@ -4,15 +4,13 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "@/lib/mongodb";
 import { compare } from "bcryptjs";
 
-const handler = NextAuth({
+// Criamos o handler NextAuth
+const authHandler = NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     CredentialsProvider({
       name: "Credentials",
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Senha", type: "password" },
-      },
+      credentials: { email: {}, password: {} },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
@@ -25,11 +23,7 @@ const handler = NextAuth({
         const isValid = await compare(credentials.password, user.password);
         if (!isValid) throw new Error("Senha incorreta");
 
-        return {
-          id: user._id.toString(),
-          name: user.name,
-          email: user.email,
-        };
+        return { id: user._id.toString(), name: user.name, email: user.email };
       },
     }),
   ],
@@ -48,8 +42,6 @@ const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
 });
 
-// Compatível com App Router
-export { handler as GET, handler as POST };
-
-// Compatível com Pages Router
-export default handler;
+// 🔹 Export obrigatório para App Router
+export const GET = authHandler;
+export const POST = authHandler;
