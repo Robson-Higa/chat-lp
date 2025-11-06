@@ -1,14 +1,17 @@
 import { MongoClient } from "mongodb";
 
-const uri = process.env.MONGODB_URI!;
+const uri = process.env.DATABASE_URL!;
 const options = {};
 
-let client;
+let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
 
-if (!process.env.MONGODB_URI) throw new Error("Defina MONGODB_URI no .env");
+if (!process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL não definido no .env");
+}
 
 if (process.env.NODE_ENV === "development") {
+  // Em dev, evita múltiplas instâncias
   if (!(global as any)._mongoClientPromise) {
     client = new MongoClient(uri, options);
     (global as any)._mongoClientPromise = client.connect();
