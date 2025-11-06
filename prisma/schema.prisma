@@ -11,5 +11,6 @@ model Message {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   userName  String
   text      String
+  room      String
   createdAt DateTime @default(now())
 }
