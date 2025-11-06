@@ -46,8 +46,7 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-// ✅ Aqui está o ponto que faltava:
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
-export default handler; // <-- ESSA LINHA É OBRIGATÓRIA!
+export default handler; 

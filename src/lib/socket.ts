@@ -1,4 +1,3 @@
-// src/lib/socket.ts
 import { io, Socket } from "socket.io-client";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL!;

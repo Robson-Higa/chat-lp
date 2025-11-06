@@ -11,7 +11,6 @@ if (!process.env.DATABASE_URL) {
 }
 
 if (process.env.NODE_ENV === "development") {
-  // Em dev, evita múltiplas instâncias
   if (!(global as any)._mongoClientPromise) {
     client = new MongoClient(uri, options);
     (global as any)._mongoClientPromise = client.connect();

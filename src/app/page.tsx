@@ -25,7 +25,7 @@ export default function ChatPage() {
 
   useEffect(() => {
     fetchMessages();
-    const interval = setInterval(fetchMessages, 2000); // atualiza a cada 2s
+    const interval = setInterval(fetchMessages, 2000); 
     return () => clearInterval(interval);
   }, []);
 

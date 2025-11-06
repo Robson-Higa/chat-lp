@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 export async function GET() {
   try {
     const mensagens = await prisma.message.findMany({
-      where: { room: { not: "" } }, // evita mensagens inválidas
+      where: { room: { not: "" } }, 
       orderBy: { createdAt: "asc" },
     });
     return new Response(JSON.stringify(mensagens), { status: 200 });
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
       data: {
         userName,
         text,
-        room: room || "general", // default para evitar null
+        room: room || "general",
       },
     });
 
